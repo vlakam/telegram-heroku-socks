@@ -1,0 +1,18 @@
+{
+  "name": "heroku-socks",
+  "version": "0.0.1",
+  "description": "Easy Socks5 proxy for Telegram",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Vladislav Kamenev",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "lodash": "^4.17.5",
+    "request": "^2.85.0"
+  }
+}
