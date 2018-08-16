@@ -9,10 +9,8 @@
   "author": "Vladislav Kamenev",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
     "cors": "^2.8.4",
     "express": "^4.16.3",
-    "lodash": "^4.17.5",
     "request": "^2.85.0"
   }
 }
