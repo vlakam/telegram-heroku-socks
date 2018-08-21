@@ -11,8 +11,12 @@ app.listen(port, () => {
 });
 
 app.get('/proxy', (req, res) => {
-    request(`http://firexproxy.com:4040/v1/proxy?protocol=SOCKS5&limit=1&offset=${Math.round(Math.random()*40)}`, (err, response, body) => {
+    request(`http://firexproxy.com:4040/v1/proxy?protocol=SOCKS5`, (err, response, body) => {
             if (err) return res.status(500).json({error: err});
-            return res.json(JSON.parse(body)[0]);
+
+            let proxies = JSON.parse(body);
+            let proxy = proxies[Math.floor(Math.random() * proxies.length)];
+
+            return res.json(proxy);
     });
 });
