@@ -1,8 +1,8 @@
-const express = require('express');
+const axios = require('axios');
 const cors = require('cors');
-const request = require('request');
-const port = process.env.PORT || 8080;
+const express = require('express');
 
+const port = process.env.PORT || 8080;
 let app = express();
 app.use(cors());
 app.use('/', express.static('./frontend'));
@@ -10,13 +10,18 @@ app.listen(port, () => {
     console.log(`Started server on ${port}`);
 });
 
-app.get('/proxy', (req, res) => {
-    request(`http://firexproxy.com:4040/v1/proxy?protocol=SOCKS5`, (err, response, body) => {
-            if (err) return res.status(500).json({error: err});
+const axiosInstance = axios.create();
+axiosInstance.defaults.headers.common['User-Agent'] = 'telegramsocks.tk/0.0.1';
 
-            let proxies = JSON.parse(body);
-            let proxy = proxies[Math.floor(Math.random() * proxies.length)];
+app.get('/proxy', async (req, res) => {
+    try {
+        const result = await axiosInstance.get(`http://api.firexproxy.com/v1/proxy?protocol=SOCKS5`);
+        console.log(result);
 
-            return res.json(proxy);
-    });
+        let proxies = result.data;
+        let proxy = proxies[Math.floor(Math.random() * proxies.length)];
+        return res.json(proxy);
+    } catch (err) {
+        res.status(500).json({error: err});
+    }
 });
